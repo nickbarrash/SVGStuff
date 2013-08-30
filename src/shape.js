@@ -1,12 +1,26 @@
 var shapeId = 0;
 var shapesArray = new Array();
 var clicked = null;
+var selected = null;
 $(document).mouseup(function() { clicked = null });
 $(document).mousemove(function(event) { 
     if (clicked != null) {
-        shapesArray[clicked].move(event.originalEvent.webkitMovementX, event.originalEvent.webkitMovementY);
+        shapesArray[clicked].move(
+            event.originalEvent.webkitMovementX | event.originalEvent.mozMovementX, 
+            event.originalEvent.webkitMovementY | event.originalEvent.mozMovementY);
     }
 });
+$(document).mousedown(function() { 
+    clearSelection();
+    selected = null
+});
+
+function clearSelection() {
+    if (selected != null) {
+        delete shapesArray[selected].attributes['class'];
+        shapesArray[selected].draw();
+    }
+}
 
 function Shape(type, attributes) {
     this.type = type;
@@ -20,9 +34,21 @@ Shape.prototype.create = function() {
     var shape = document.createElementNS("http://www.w3.org/2000/svg", this.type);
     $(shape).attr('id', "Shape" + this.id);
     var context = this;
-    $(shape).mousedown(function() { clicked = context.id });
+    $(shape).mousedown(this.mouseDownHandler(context));
     $(shape).attr(this.attributes);
     return shape;
+}
+
+Shape.prototype.mouseDownHandler = function(context) {
+    return function(e) {
+        clearSelection();   
+        selected = context.id;
+        clicked = context.id;
+        context.attributes['class'] = "selected";
+        context.draw();
+        console.log(shapesArray[selected]);
+        e.stopPropagation();
+    }
 }
 
 Shape.prototype.draw = function() {
@@ -30,7 +56,8 @@ Shape.prototype.draw = function() {
         $("#Shape" + this.id).replaceWith(this.create());
     } else {
         $("#canvas").append(this.create());
-    }
+    }    
+    $("[class~=selected]").attr("stroke","blue").attr("stroke-width", 3);
 }
 
 Shape.prototype.fill = function(color) {
