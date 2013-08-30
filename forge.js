@@ -5,7 +5,7 @@ function Attribute(key, value) {
 
 function Shape(type, attributes) {
     this.type = type;
-    this.attributes = attributes;
+	this.attributes = attributes;
 }
 
 Shape.prototype.create = function() {
@@ -15,10 +15,11 @@ Shape.prototype.create = function() {
     }
     return shape;
 }
+
 function Circle(cx, cy, r) {
     Shape.call(this, "circle", [new Attribute("cx",cx), new Attribute("cy",cy), new Attribute("r",r)]);
-}    
-Circle.prototype = new Shape;
+}
+Circle.prototype = new Shape();
 Circle.prototype.constructor = Circle;
 
 window.onload = function() {
