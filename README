@@ -2,4 +2,4 @@ Download google closure compiler.
 
 Run this:
 
-java -jar compiler.jar --js shape.js --js rect.js --js circle.js --js ellipse.js --js line.js --js polyline.js --js polygon.js --js main.js --js_output_file forge.js
+java -jar compiler.jar --js src/shape.js --js src/rect.js --js src/circle.js --js src/ellipse.js --js src/line.js --js src/polyline.js --js src/polygon.js --js src/main.js --js_output_file forge.js
