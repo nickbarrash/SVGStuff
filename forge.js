@@ -8,13 +8,13 @@ function Attribute(key, value) {
 
 function Shape(type, attributes) {
     this.type = type;
-    this.id = "id";
+    this.id = shapeId;
 	this.attributes = attributes;
 }
 
 Shape.prototype.create = function() {
     var shape = document.createElementNS("http://www.w3.org/2000/svg", this.type);
-    shape.setAttributeNS(null, this.id, shapeId);
+    shape.setAttributeNS(null, "id", this.id);
     shapeId += 1;
     for (var i = 0; i < this.attributes.length; i++) {
         shape.setAttributeNS(null, this.attributes[i].key, this.attributes[i].value);  
@@ -32,8 +32,8 @@ function SkewEllipse(id, sx, sy) {
 }
 
 function moveEllipse(id, tx, ty) {
-    $("#"+id).attr("tx", $("#"+id).attr("cx") + tx);
-    $("#"+id).attr("ty", $("#"+id).attr("cy") + ty);
+    $("#"+id).attr("cx", $("#"+id).attr("cx") + tx);
+    $("#"+id).attr("cy", $("#"+id).attr("cy") + ty);
 }
 
 Circle.prototype = new Shape();
@@ -46,5 +46,5 @@ window.onload = function() {
     $("#canvas").append(mycircle.create());
     SkewEllipse(0, 10,1);
     SkewEllipse(1, 3,6);
-    moveEllipse(1, 400, 300);
+    moveEllipse(1, 40, 40);
 }
