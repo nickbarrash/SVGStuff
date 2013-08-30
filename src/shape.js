@@ -33,7 +33,47 @@ Shape.prototype.fillRule = function(rule) {
     return this;
 }
 
+Shape.prototype.fillOpacity = function(opacity) {
+    this.attributes["fill-opacity"] = opacity;
+    return this;
+}
+
 Shape.prototype.stroke = function(color) {
     this.attributes.stroke = color;
+    return this;
+}
+
+Shape.prototype.strokeWidth = function(value) {
+    this.attributes["stroke-width"] = value;
+    return this;
+}
+
+Shape.prototype.strokeLinecap = function(type) {
+    this.attributes["stroke-linecap"] = type;
+    return this;
+}
+
+Shape.prototype.strokeLinejoin = function(type) {
+    this.attributes["stroke-linejoin"] = type;
+    return this;
+}
+
+Shape.prototype.stokeMiterlimit = function(value) {
+    this.attributes["stroke-miterlimit"] = value;
+    return this;
+}
+
+Shape.prototype.strokeDasharray = function(array) {
+    this.attributes["stroke-dasharray"] = array;
+    return this;
+}
+
+Shape.prototype.strokeDashoffset = function(value) {
+    this.attributes["stroke-dashoffset"] = value;
+    return this;
+}
+
+Shape.prototype.strokeOpacity = function(value) {
+    this.attributes["stroke-opacity"] = value;
     return this;
 }
