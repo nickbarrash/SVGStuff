@@ -9,3 +9,9 @@ function Rect(x, y, width, height, rx, ry) {
 }
 Rect.prototype = Object.create(Shape.prototype);
 Rect.prototype.constructor = Rect;
+
+Rect.prototype.move = function(dx, dy) {
+    this.attributes.x += dx;
+    this.attributes.y += dy;
+    this.draw();
+}

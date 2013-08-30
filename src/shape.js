@@ -1,5 +1,12 @@
 var shapeId = 0;
 var shapesArray = new Array();
+var clicked = null;
+$(document).mouseup(function() { clicked = null });
+$(document).mousemove(function(event) { 
+    if (clicked != null) {
+        shapesArray[clicked].move(event.originalEvent.webkitMovementX, event.originalEvent.webkitMovementY);
+    }
+});
 
 function Shape(type, attributes) {
     this.type = type;
@@ -11,13 +18,16 @@ function Shape(type, attributes) {
 
 Shape.prototype.create = function() {
     var shape = document.createElementNS("http://www.w3.org/2000/svg", this.type);
+    $(shape).attr('id', "Shape" + this.id);
+    var context = this;
+    $(shape).mousedown(function() { clicked = context.id });
     $(shape).attr(this.attributes);
     return shape;
 }
 
 Shape.prototype.draw = function() {
-    if ($("#" + this.id).length > 0) {
-        $("#" + this.id).replaceWith(this.create());
+    if ($("#Shape" + this.id).length > 0) {
+        $("#Shape" + this.id).replaceWith(this.create());
     } else {
         $("#canvas").append(this.create());
     }
