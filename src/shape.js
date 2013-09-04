@@ -57,7 +57,10 @@ Shape.prototype.draw = function() {
     } else {
         $("#canvas").append(this.create());
     }    
-    $("[class~=selected]").attr("stroke","blue").attr("stroke-width", 3);
+    if (selected != null) {
+        var width = (shapesArray[selected].attributes["stroke-width"] || 0) + 3;
+    }
+    $("[class~=selected]").attr("stroke","blue").attr("stroke-width", width);
 }
 
 Shape.prototype.fill = function(color) {
